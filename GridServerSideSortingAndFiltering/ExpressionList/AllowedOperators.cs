@@ -8,8 +8,9 @@ namespace GridServerSideSortingAndFiltering.ExpressionList
     public static class AllowedOperators
     {
         public static FilterOperator[] OperatorsAllowedForString = new FilterOperator[] { FilterOperator.Contains, FilterOperator.Equals, FilterOperator.NotContains, FilterOperator.NotEqual, FilterOperator.StartsWith, FilterOperator.EndsWith };
-        public static FilterOperator[] OperatorsAllowedForDate = new FilterOperator[] { FilterOperator.Equals, FilterOperator.NotEqual, FilterOperator.GreaterThan, FilterOperator.LessThan, FilterOperator.InRange};
+        public static FilterOperator[] OperatorsAllowedForDate = new FilterOperator[] { FilterOperator.Equals, FilterOperator.NotEqual, FilterOperator.GreaterThan, FilterOperator.LessThan, FilterOperator.InRange };
         public static FilterOperator[] OperatorsAllowedForNumber = new FilterOperator[] { FilterOperator.Equals, FilterOperator.NotEqual, FilterOperator.GreaterThan, FilterOperator.GreaterThanOrEqual, FilterOperator.LessThan, FilterOperator.LessThanOrEqual, FilterOperator.InRange };
+        public static FilterOperator[] OperatorsAllowedForBoolean = new FilterOperator[] { FilterOperator.Equals, FilterOperator.NotEqual };
 
         public static bool IsOperatorAllowedForString(FilterOperator filterOperator)
         {
@@ -26,6 +27,10 @@ namespace GridServerSideSortingAndFiltering.ExpressionList
             return OperatorsAllowedForNumber.Contains(filterOperator);
         }
 
+        public static bool IsOperatorAllowedForBoolean(FilterOperator filterOperator)
+        {
+            return OperatorsAllowedForBoolean.Contains(filterOperator);
+        }
 
         public static bool IsOperatorAllowedForType(FilterOperator filterOperator, Type type)
         {
@@ -44,6 +49,11 @@ namespace GridServerSideSortingAndFiltering.ExpressionList
             if (type == typeof(Decimal) || type == typeof(Decimal?) || type == typeof(int) || type == typeof(int?) || type == typeof(double) || type == typeof(double?))
             {
                 r = IsOperatorAllowedForNumber(filterOperator);
+            }
+
+            if (type == typeof(bool) || type == typeof(bool?) )
+            {
+                r = IsOperatorAllowedForBoolean(filterOperator);
             }
 
             return r;

@@ -124,6 +124,13 @@ namespace GridServerSideSortingAndFiltering.ExpressionList
                 }
 
             }
+            else if (columnType == typeof(bool) || columnType == typeof(bool?))
+            {
+                object value = (object)universalFilterEntry.FirstValue;
+
+                if (universalFilterEntry.FilterOperator == FilterOperator.Equals) innerExpression = Equal(columnExpression, value);
+                if (universalFilterEntry.FilterOperator == FilterOperator.NotEqual) innerExpression = NotEqual(columnExpression, value);
+            }
             else if (numericTypes.Contains(columnType))
             {
                 object value = universalFilterEntry.FirstValue;

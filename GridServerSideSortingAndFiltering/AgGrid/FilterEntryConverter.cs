@@ -48,6 +48,10 @@ namespace GridServerSideSortingAndFiltering.AgGrid
                         r.SecondValue = double.Parse(filterEntry.filterTo, CultureInfo.CurrentCulture);
                     }
                 }
+                else if (filterEntry.filterType == "boolean")
+                {
+                    r.FirstValue = bool.Parse(filterEntry.filter);
+                }
                 else
                 {
                     throw new InvalidOperationException(String.Format("The filter type {0} is not supported.", filterEntry.filterType));
